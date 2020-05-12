@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap');
+*{padding: 0px; margin: 0px;
+    border: none;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing:    border-box;
+            box-sizing:    border-box;}
+
+body{
+    background: linear-gradient(rgb(122, 119, 119), rgb(128, 127, 126));
+  
+}            
+#root{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.main{
+    width:25%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    padding:2px;
+    background-color: rgb(219, 219, 212);
+    align-items: space-around;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 2px 2px rgb(219, 219, 212);
+    min-height: 300px;
+    min-width: 150px;
+}
+
+#display{
+    height: 15%;
+    width: 95%;
+    border: 2px solid rgb(204, 201, 201);
+    border-radius: 5px;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2px;
+    align-items: center;
+    margin-top: 15px;
+    background-color: rgb(255, 255, 255);
+    font-family: DM Mono;
+}
+.what-to-show{
+    font-size: 20px;
+    overflow-x: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.outter-grid{ 
+  padding: 2px;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} 
+.inner-grid{
+    display: grid;
+    grid-template-columns: 2.5fr 0.5fr;
+    grid-template-rows: auto ;
+    padding: 5px;
+    align-items: center;
+    height: 100%;
+}
+.top{
+    display: flex;
+    height: 15%;
+    padding: 5px;
+    margin-bottom: -7.5px;
+}
+.top>*{
+  flex: 1;
+}
+#clear{
+  flex: 2;
+}
+.middle-bottom-grid{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.middle{
+    display: grid;
+    grid-gap: 2px;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(3, auto);
+    flex:2;
+}
+.right{
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
+    grid-gap: 2px;
+    height: 100%;
+}
+.bottom{
+    display: flex;
+    grid-gap: 2px;
+    margin-top: 2px;
+    height: 20%;
+}
+#zero{
+    flex:2;
+}
+#decimal{
+    flex:1;
+    margin-left: 2px;
+}
+#multiply, #subtract, #divide{
+   margin-left: 2px;
+}
+.button{
+    display: block;
+	color: whitesmoke;
+	margin: 3px;
+    background: #666664;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+    border-top: 1px solid #333;
+	-webkit-box-shadow: 
+    inset 0 0 25px #5a5a57,
+    0 1px 0 #5a5a57,
+    0 2px 0 #5a5a57,
+    0 2px 3px #333;
+	-moz-box-shadow: 
+    inset 0 0 25px #5a5a57,
+    0 1px 0 #5a5a57,
+    0 2px 0 #5a5a57,
+    0 2px 3px #333;
+        
+	box-shadow: 
+    inset 0 0 25px #5a5a57,
+    0 1px 0 #5a5a57,
+    0 2px 0 #5a5a57,
+    0 2px 3px #333;
+	
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgb(162, 167, 168); 
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    background: rgba(115, 116, 76, 0.5); 
+    -webkit-box-shadow: inset 0 0 6px rgb(123, 128, 129); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgb(123, 128, 129); 
+}
+
+.just-clicked{
+    background-color: rgb(110, 108, 108) !important;
+    outline:none;
+}
+@media (max-width:360px){
+    .main{
+      width:80%;
+      height: 70%;
+    }
+}
+@media (min-width:361px) and (max-width:400px){
+    .main{
+      width:80%;
+      height: 65%;
+    }
+}
+@media (min-width:401px) and (max-width:460px){
+    .main{
+      width:75%;
+      height: 65%;
+    }
+}
+@media (min-width:461px) and (max-width:603px){
+    .main{
+      width:60%;
+      height: 60%;
+    }
+}
+@media (min-width:604px) and (max-width:800px){
+    .main{
+      width:45%;
+      height: 65%;
+    }
+}
+
+@media (max-width:750px) and (orientation:landscape){
+    .main{
+      width:45%;
+      height:90%;
+    }
+}
+
+@media (min-width:840px) and (max-width:1024px) and (orientation:landscape){
+    .main{
+      width:35%;
+      height:75%;
+    }
+}
+
+
