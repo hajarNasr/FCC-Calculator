@@ -64,16 +64,19 @@ class Calculator extends React.Component{
         else{
             this.modifyState([result, sign], result+sign, "", "");
         }  
-
     }
-    
     handleCalculation = ()=>{ 
 
         let result;
         if (!this.state.input && this.state.equation.length === 0){
             return
         }
-        result = this.calculate([...this.state.equation, this.state.input]);
+        
+        let eq = [...this.state.equation, this.state.input];
+        eq = eq.map(item =>{
+            return `${item}`.length? `${item}` : "0";
+       });
+        result = this.calculate(eq);
           
         this.modifyState([], result, result);
     }
@@ -95,7 +98,7 @@ class Calculator extends React.Component{
         else{
            let numbers = eq.filter(item=> "+/*-".replace(item,"").length === 4);
            let signs   = eq.filter(item=> "+/*-".replace(item,"").length !== 4)
-
+           console.log(eq)
            return numbers.length === signs.length+1
                  ? this.handleNormalCalculations(eq)
                  : this.handleSignsOverflow(eq);
@@ -103,6 +106,9 @@ class Calculator extends React.Component{
      }
      
      handleNormalCalculations= (eq)=>{
+        if (eq.slice(1, eq.length-1).indexOf("0") !== -1){
+            eq = this.handleExtaSigns(eq);
+        }
         let arrOfSigns = ["*", "/", "-", "+"];
         
         for(let i=0; i < arrOfSigns.length; i++){
@@ -111,33 +117,34 @@ class Calculator extends React.Component{
                 if (eq.length === 3){
                     break;
                 } 
-                eq= this.computeNumbersBeforeAndAfterSign(eq, sign);
+                eq = this.computeNumbersBeforeAndAfterSign(eq, sign);
             }
-        } 
-      return this.calculateTwoNumbers(parseFloat(eq[0]), eq[1], parseFloat(eq[2]));  
+        }   
+      return `${this.calculateTwoNumbers(parseFloat(eq[0]), eq[1], parseFloat(eq[2]))}`;  
      }
 
-     handleSignsOverflow = (eq)=>{
-        let newEq = [eq[0]];
-        for (let i=1; i<eq.length; i++){
-              // Number and sign
-             if((parseFloat(newEq[newEq.length-1])===parseFloat(newEq[newEq.length-1])) && (parseFloat(eq[i])!==parseFloat(eq[i]))){
-                newEq.push(eq[i]);
+     handleExtaSigns = (eq) =>{
+         let newEq = [];
+         eq = eq.filter(item=>item !=="0");
+         for(let i=0; i<eq.length; i++){
+             if(eq[i]==="-" && this.isNumber(eq[i+1])){
+                 eq[i]="";
+                 eq[i+1]=`${eq[i+1]*-1}`;
              }
-             //Sign and sign
-             else if ((parseFloat(newEq[newEq.length-1])!==parseFloat(newEq[newEq.length-1])) && (parseFloat(eq[i])!==parseFloat(eq[i]))){
-                 if(eq[i]==="-" && parseFloat(eq[i+1])===parseFloat(eq[i+1])){
-                    eq[i+1] = `${eq[i+1] *-1}`;
-                 }
-                 else{
-                     newEq[newEq.length-1] = eq[i] ;
-                 }
+         }
+         eq= eq.filter(item=> item!=="");
+         for(let i=0; i<eq.length; i++){
+             if(!this.isNumber(newEq[newEq.length-1]) && !this.isNumber(eq[i])){
+                newEq[newEq.length-1] = eq[i]
              }
              else{
                  newEq.push(eq[i]);
              }
-        }
-        return this.handleNormalCalculations(newEq);
+         }
+         return newEq;
+     }
+     isNumber = (num)=>{
+         return parseFloat(num)===parseFloat(num);
      }
 
      computeNumbersBeforeAndAfterSign = (eq, sign)=>{
@@ -145,7 +152,7 @@ class Calculator extends React.Component{
                                 parseFloat(eq[eq.indexOf(sign)-1]),
                                 sign,
                                 parseFloat(eq[eq.indexOf(sign)+1]));
-                                
+                 
         eq = [...eq.slice(0, eq.indexOf(sign)-1), `${answer}`, ...eq.slice(eq.indexOf(sign)+2, eq.length)]
 
         return eq;   
